@@ -40,6 +40,7 @@ var feedback = require('../modules/feedback'),
     SetLanguage,
     Settings,
     Snackbar,
+    Telemetry,
     Tour,
     TranslateFrom,
     UnreadRecords,
@@ -51,6 +52,20 @@ var feedback = require('../modules/feedback'),
     RecurringProcessManager
   ) {
     'ngInject';
+
+    window.startupTimes.angularBootstrapped = performance.now();
+    Telemetry.record(
+      'boot_time_1_to_first_code_execution',
+      window.startupTimes.firstCodeExecution - window.startupTimes.start
+    );
+    Telemetry.record(
+      'boot_time_2_to_bootstrap',
+      window.startupTimes.bootstrapped - window.startupTimes.firstCodeExecution
+    );
+    Telemetry.record(
+      'boot_time_3_to_angular_bootstrap',
+      window.startupTimes.angularBootstrapped - window.startupTimes.bootstrapped
+    );
 
     Session.init();
 
@@ -109,6 +124,15 @@ var feedback = require('../modules/feedback'),
 
     RulesEngine.init.catch(function() {}).then(function() {
       $scope.dbWarmedUp = true;
+
+      var dbWarmed = performance.now();
+      Telemetry.record(
+        'boot_time_4_to_db_warmed',
+        dbWarmed - window.startupTimes.bootstrapped
+      );
+      Telemetry.record('boot_time', dbWarmed - window.startupTimes.start);
+
+      delete window.startupTimes;
     });
 
     feedback.init({

@@ -1,3 +1,5 @@
+window.startupTimes.firstCodeExecution = performance.now();
+
 window.PouchDB = require('pouchdb-browser');
 window.PouchDB.plugin(require('pouchdb-debug'));
 window.$ = window.jQuery = require('jquery');
@@ -151,6 +153,7 @@ _.templateSettings = {
       }
       return;
     }
+    window.startupTimes.bootstrapped = performance.now();
     angular.element(document).ready(function() {
       angular.bootstrap(document, ['inboxApp'], {
         strictDi: true,

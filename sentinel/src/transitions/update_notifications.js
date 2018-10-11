@@ -4,9 +4,7 @@ var async = require('async'),
     utils = require('../lib/utils'),
     messages = require('../lib/messages'),
     validation = require('../lib/validation'),
-    db = require('../db-nano'),
-    transitionUtils = require('./utils'),
-    NAME = 'update_notifications';
+    db = require('../db-nano');
 
 var isConfigured = function(config, eventType) {
     return config && config.messages && config.messages.some(message => {
@@ -64,15 +62,10 @@ module.exports = {
             module.exports._addErr(event_type, config, doc);
         }
     },
-    filter: function(doc, info={}) {
-        return Boolean(
-            doc &&
-            doc.form &&
-            doc.type === 'data_record' &&
-            doc.fields &&
-            doc.fields.patient_id &&
-            !transitionUtils.hasRun(info, NAME)
-        );
+
+    // disabled transition due to conflicting features with `muting` transition
+    filter: function() {
+        return false;
     },
     getConfig: function() {
         return _.extend({}, config.get('notifications'));

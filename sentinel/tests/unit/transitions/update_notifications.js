@@ -45,7 +45,7 @@ describe('update_notifications', () => {
         form: 'x',
         fields: { patient_id: 'x' },
         type: 'data_record'
-      }), true);
+      }), false);
     });
 
   });

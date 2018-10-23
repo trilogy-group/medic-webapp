@@ -54,7 +54,7 @@ https://github.com/trilogy-group/medic-webapp
 2. copy the artifacts in the repo directory
 3. `docker-compose up`
 4. open http://localhost:5988 to see medic login ui
-5. open http://localost:5984 to see fauxton ui. This can be used to configure couchdb instance running in couchdb container.
+5. open http://localhost:5984/_utils to see fauxton ui. This can be used to configure couchdb instance running in couchdb container.
 
 
 ## Medic Technical references

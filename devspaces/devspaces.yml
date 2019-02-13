@@ -24,7 +24,7 @@ docker-build-includes: |
 sync-ignore: |
   .git
   .idea
-  /node_modules
+  node_modules
   coverage/
   dist
   /build

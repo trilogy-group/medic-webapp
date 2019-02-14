@@ -1,0 +1,32 @@
+--- # devspaces.yml
+name: ds-medic
+description:  Development environment Devfactory medic
+
+# If you want to use a different Dockerfile for your DevSpace, provide the path
+# here.
+docker-file: Dockerfile
+
+ports:
+- protocol: http # can be udp|tcp|http
+  port-number: 5988
+  description: web app
+- protocol: http # can be udp|tcp|http
+  port-number: 5984
+  description: couchdb
+
+# If you need additional files when building your Dockerfile, such as some
+# application binaries that your Dockerfile references, list the glob paths to
+# include here. They are relative to this devspaces.yml file.
+docker-build-includes: |
+  **/*
+
+# generic `build` filter cannot be used once we have a source package named `build`.
+sync-ignore: |
+  .git
+  .idea
+  node_modules
+  coverage/
+  dist
+  /build
+  /packages
+  /.env
